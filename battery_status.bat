@@ -20,15 +20,15 @@ SET /A Battery.RemainingCapacity = ( %Battery.RemainingCapacity%00 + %Battery.Fu
 IF /I "%Battery.PowerOnline%"=="TRUE" (
 	:: ECHO Now working on mains power
 	ECHO %Battery.RemainingCapacity%%%
-	IF %Battery.RemainingCapacity% == 100 (
+	IF %Battery.RemainingCapacity% GTR 99 (
 	goto alarm
 	)
-	TIMEOUT /T 5 /NOBREAK
+	TIMEOUT /T 10 /NOBREAK
 	goto start
 ) ELSE (
 	:: ECHO Estimated remaining runtime %Battery.EstimatedRuntime% minutes
-	ECHO %Battery.RemainingCapacity%
-	TIMEOUT /T 5 /NOBREAK
+	ECHO %Battery.RemainingCapacity%%%
+	TIMEOUT /T 10 /NOBREAK
 	goto start
 )
 GOTO:EOF
@@ -44,7 +44,9 @@ GOTO:EOF
 
 
 
-pause
+
+TIMEOUT /T 10 /NOBREAK
+goto start
 
 :: End localization
 IF "%OS%"=="Windows_NT" ENDLOCAL
