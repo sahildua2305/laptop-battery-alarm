@@ -42,9 +42,6 @@ GOTO:EOF
 
 
 
-
-
-
 TIMEOUT /T 10 /NOBREAK
 goto start
 
